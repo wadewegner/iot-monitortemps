@@ -1,10 +1,10 @@
 import os, psycopg2, urlparse, pika
 
 queueName = "message"
-print "1"
+
 urlparse.uses_netloc.append("postgres")
 url = urlparse.urlparse(os.environ["DATABASE_URL"])
-print "2"
+
 conn = psycopg2.connect(
     database=url.path[1:],
     user=url.username,
@@ -12,17 +12,17 @@ conn = psycopg2.connect(
     host=url.hostname,
     port=url.port
 )
-print "3"
+
 cur = conn.cursor()
-print "4"
+
 url_str = os.environ.get('CLOUDAMQP_URL', '')
 url = urlparse.urlparse(url_str)
-print "5"
+
 params = pika.ConnectionParameters(
 	host=url.hostname,
 	virtual_host=url.path[1:],
     credentials=pika.PlainCredentials(url.username, url.password))
-print "6"
+
 connection = pika.BlockingConnection(params)
 channel = connection.channel()
 
