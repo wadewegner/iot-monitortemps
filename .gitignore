@@ -54,3 +54,5 @@ docs/_build/
 
 venv
 *.pyc
+
+notes.md
