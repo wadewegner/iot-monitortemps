@@ -1,30 +1,11 @@
-import pika, os, urlparse, random, pytz, glob, time
+import pika, os, urlparse, random, pytz
 from time import sleep
 from datetime import datetime
 
-def read_temp_raw():
-    f = open(device_file, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
-
-def read_temp():
-    
-
-# Variables
 queueName = "task_queue"
 url_str = os.environ.get('CLOUDAMQP_URL', '')
 url = urlparse.urlparse(url_str)
 
-# Set GPIO details
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-
-base_dir = '/sys/bus/w1/devices/'
-device_folder = glob.glob(base_dir + '28*')[0]
-device_file = device_folder + '/w1_slave'
-
-# Setup connection
 params = pika.ConnectionParameters(
 	host=url.hostname, 
 	virtual_host=url.path[1:],
@@ -45,21 +26,14 @@ try:
 
 	while True:
 
-		temp_c = 0;
-		temp_f = 0;
+		# Create test data
+		c_r = random.uniform(-1, 1)
+		f_r = random.uniform(-5, 5)
+		c = 25.875 + c_r
+		f = 78.575 + f_r
+		now = datetime.now(pytz.utc)
 
-		lines = read_temp_raw()
-	    while lines[0].strip()[-3:] != 'YES':
-	        time.sleep(0.2)
-	        lines = read_temp_raw()
-	    equals_pos = lines[1].find('t=')
-	    if equals_pos != -1:
-	        temp_string = lines[1][equals_pos+2:]
-	        temp_c = float(temp_string) / 1000.0
-	        temp_f = temp_c * 9.0 / 5.0 + 32.0
-
-
-		message = "{0},{1},{2}".format(temp_c, temp_f, now)
+		message = "{0},{1},{2}".format(c, f, now)
 		
 		# Send a message
 		channel.basic_publish(exchange='', 
@@ -72,7 +46,7 @@ try:
 
 		print " [x] Sent: %s" % message
 
-		sleep(1)
+		sleep(5)
 
 except KeyboardInterrupt:
 
