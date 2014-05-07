@@ -76,15 +76,15 @@ try:
 		device_folder = glob.glob(base_dir + '28*')[0]
 		device_file = device_folder + '/w1_slave'
 
-		output1 = read_temp()
+		temp_c, temp_f = read_temp()
 
-		pub_message(output1[0], output1[2])
+		pub_message(temp_c, temp_f)
 
 		device_folder = glob.glob(base_dir + '28*')[1]
 		device_file = device_folder + '/w1_slave'
 
-		output2 = read_temp()
-		pub_message(output2[0], output2[2])
+		temp_c, temp_f = read_temp()
+		pub_message(temp_c, temp_f)
 
 		sleep(1)
 
