@@ -25,13 +25,13 @@ def read_temp():
         temp_c = float(temp_string) / 1000.0
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         return temp_c, temp_f
-	
+
 while True:
 
     device_folder = glob.glob(base_dir + '28*')[0]
     device_file = device_folder + '/w1_slave'
 
-	output1 = read_temp()
+    output1 = read_temp()
 
     device_folder = glob.glob(base_dir + '28*')[1]
     device_file = device_folder + '/w1_slave'
@@ -40,4 +40,4 @@ while True:
 
     print "S1: " + str(output1) + ", S1: " + str(output2)
 
-	time.sleep(1)
+    time.sleep(1)
