@@ -38,6 +38,6 @@ while True:
 
     output2 = read_temp()
 
-    print "S1: " + str(output1) + ", S1: " + str(output2)
+    print "S1: " + str(output1) + ", S2: " + str(output2)
 
     time.sleep(1)
