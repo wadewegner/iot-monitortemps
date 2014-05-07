@@ -73,18 +73,17 @@ try:
 		temp_c = 0;
 		temp_f = 0;
 		
-		device_folder = glob.glob(base_dir + '28*')[0]
-		device_file = device_folder + '/w1_slave'
+		sensorId = "28-00000557d264"
+		device_file = base_dir + sensorId + '/w1_slave'
 
 		temp_c, temp_f = read_temp()
+		pub_message(temp_c, temp_f, sensorId)
 
-		pub_message(temp_c, temp_f)
-
-		device_folder = glob.glob(base_dir + '28*')[1]
-		device_file = device_folder + '/w1_slave'
+		sensorId = "28-000005584db5"
+		device_file = base_dir + sensorId + '/w1_slave'
 
 		temp_c, temp_f = read_temp()
-		pub_message(temp_c, temp_f)
+		pub_message(temp_c, temp_f, sensorId)
 
 		sleep(1)
 
