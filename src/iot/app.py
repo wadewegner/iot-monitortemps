@@ -21,10 +21,10 @@ def read_temp():
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         return temp_c, temp_f
 
-def pub_message(temp_c, temp_f):
+def pub_message(temp_c, temp_f, sensorId):
 
 	now = datetime.now(pytz.utc)
-	message = "{0},{1},{2}".format(temp_c, temp_f, now)
+	message = "{0},{1},{2},{3}".format(temp_c, temp_f, sensorId, now)
 	
 	# Send a message
 	channel.basic_publish(exchange='', 

@@ -42,9 +42,9 @@ def callback(ch, method, properties, body):
 	records = [x.strip() for x in body.split(',')]
 
 	# Insert into Postgres
-	cur.execute('INSERT INTO iot_monitortemps.readings__c (celsius__c, fahrenheit__c, readingdatetime__c) ' +
-		'VALUES (%s, %s, %s)', 
-		(records[0],records[1],records[2]))
+	cur.execute('INSERT INTO iot_monitortemps.readings__c (celsius__c, fahrenheit__c, sensorid__c, readingdatetime__c) ' +
+		'VALUES (%s, %s, %s, %s)', 
+		(records[0],records[1],records[2],records[3]))
 
 	conn.commit()
 
