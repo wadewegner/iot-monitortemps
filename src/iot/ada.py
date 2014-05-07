@@ -6,8 +6,6 @@ os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
 base_dir = '/sys/bus/w1/devices/'
-device_folder = glob.glob(base_dir + '28*')[0]
-device_file = device_folder + '/w1_slave'
 
 def read_temp_raw():
     f = open(device_file, 'r')
@@ -16,6 +14,7 @@ def read_temp_raw():
     return lines
 
 def read_temp():
+
     lines = read_temp_raw()
     while lines[0].strip()[-3:] != 'YES':
         time.sleep(0.2)
@@ -28,5 +27,17 @@ def read_temp():
         return temp_c, temp_f
 	
 while True:
-	print(read_temp())	
+
+    device_folder = glob.glob(base_dir + '28*')[0]
+    device_file = device_folder + '/w1_slave'
+
+	output1 = read_temp()
+
+    device_folder = glob.glob(base_dir + '28*')[1]
+    device_file = device_folder + '/w1_slave'
+
+    output2 = read_temp()
+
+    print "S1: " + str(output1) + ", S1: " + str(output2)
+
 	time.sleep(1)
