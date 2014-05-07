@@ -33,11 +33,12 @@ while True:
 
     output1 = read_temp()
 
-    device_folder = glob.glob(base_dir + '28*')[1]
-    device_file = device_folder + '/w1_slave'
+    #device_folder = glob.glob(base_dir + '28*')[1]
+    #device_file = device_folder + '/w1_slave'
 
-    output2 = read_temp()
+    #output2 = read_temp()
 
-    print "S1: " + str(output1) + ", S2: " + str(output2)
+    #print "S1: " + str(output1) + ", S2: " + str(output2)
+    print "S1: " + str(output1)
 
-    time.sleep(1)
+    time.sleep(.5)
